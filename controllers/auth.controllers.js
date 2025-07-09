@@ -36,6 +36,7 @@ export const registerUser = async (req, res, next) => {
     // const token = crypto.randomBytes(32).toString("hex");
     const { unHashedToken, hashedToken } = user.generateRandomToken();
     user.emailVerificationToken = hashedToken;
+    user.emailVerificationExpiry = Date.now() + 10 * 60 * 1000;
 
     await user.save();
 
@@ -69,8 +70,13 @@ export const verifyUser = async (req, res, next) => {
     if (!user) {
       throw new ApiError(400, "Invalid Token");
     }
+
+    if (user.emailVerificationExpiry < Date.now()) {
+      throw new ApiError(400, "Token expired");
+    }
     user.isEmailVerified = true;
     user.emailVerificationToken = undefined;
+    user.emailVerificationExpiry = undefined;
     await user.save();
 
     return responseHandler(res, 200, "User verified Successfully");
@@ -91,7 +97,7 @@ export const loginUser = async (req, res, next) => {
       throw new ApiError(404, "User not Found");
     }
 
-    const isMatch = bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       throw new ApiError(400, "Invalid Credentials");
     }
