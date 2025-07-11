@@ -103,7 +103,7 @@ export const loginUser = async (req, res, next) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { _id: user._id, email: user.email },
       process.env.JWT_SECRET,
       {
         expiresIn: "24h",
@@ -126,7 +126,9 @@ export const loginUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   try {
-    const loggedInUser = await User.findById(req.user.id).select("-password");
+    const loggedInUser = await User.findById(req.user.JWT_SECRETid).select(
+      "-password"
+    );
     if (!loggedInUser) {
       throw new ApiError(404, "User not Found");
     }

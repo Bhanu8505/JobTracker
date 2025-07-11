@@ -3,9 +3,11 @@ import express, { json } from "express";
 import dotenv from "dotenv";
 import { db } from "./utils/db.js";
 import { errorHandler } from "./utils/errorHandler.js";
-import userRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import userRouter from "./routes/auth.routes.js";
+import jobRouter from "./routes/job.routes.js";
+import { isLoggedIn } from "./middlewares/isLoggedIn.middlware.js";
 
 dotenv.config({
   path: "./.env",
@@ -34,6 +36,7 @@ app.get("/", (req, res) => {
 db();
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/jobs", isLoggedIn, jobRouter);
 
 app.use(errorHandler);
 

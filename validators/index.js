@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-export const userRegisterValidation = (req, res, next) => {
+export const userRegisterValidation = () => {
   return [
     body("email")
       .normalizeEmail()
@@ -43,5 +43,26 @@ export const userLoginValidation = () => {
     body("username").trim().notEmpty().withMessage("username cannot be blank"),
 
     body("password").trim().notEmpty().withMessage("Password cannot be empty"),
+  ];
+};
+
+export const jobCreationValidation = () => {
+  return [
+    body("title").trim().notEmpty().withMessage("Title cannot be blank"),
+    body("description")
+      .trim()
+      .notEmpty()
+      .withMessage("Description cannot be blank"),
+    body("company").trim().notEmpty().withMessage("company cannot be blank"),
+    body("jobLocation")
+      .trim()
+      .notEmpty()
+      .withMessage("jobLocation cannot be blank"),
+    body("positionType")
+      .trim()
+      .notEmpty()
+      .withMessage("positionType cannot be blank")
+      .isIn(["Full-Time", "Part-Time", "Contract", "Internship", "Remote"])
+      .withMessage("Invalid Position Type"),
   ];
 };
