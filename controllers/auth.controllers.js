@@ -93,7 +93,7 @@ export const loginUser = async (req, res, next) => {
     }
 
     const user = await User.findOne({ email });
-    if (!user) {
+    if (!user || !user.isActive) {
       throw new ApiError(404, "User not Found");
     }
 
@@ -130,6 +130,9 @@ export const getUser = async (req, res, next) => {
     if (!loggedInUser) {
       throw new ApiError(404, "User not Found");
     }
+    if (!loggedInUser.isActive) {
+      throw new ApiError(400, "Invalid User");
+    }
     return responseHandler(res, 200, "User Found", loggedInUser);
   } catch (error) {
     next(error);
@@ -158,8 +161,8 @@ export const forgotPassword = async (req, res, next) => {
 
     const user = await User.findOne({ email });
 
-    if (!user) {
-      throw new ApiError(400, "No user Found");
+    if (!user || !user.isActive) {
+      throw new ApiError(400, "No user Found or Invalid User");
     }
 
     const { hashedToken, unHashedToken } = user.generateRandomToken();
@@ -195,8 +198,8 @@ export const resetPassword = async (req, res, next) => {
     }
 
     const user = await User.findOne({ resetPasswordToken });
-    if (!user) {
-      throw new ApiError(400, "Invalid Token");
+    if (!user || !user.isActive) {
+      throw new ApiError(400, "Invalid Token or User");
     }
 
     if (user.resetPasswordExpiry < Date.now()) {
@@ -209,6 +212,32 @@ export const resetPassword = async (req, res, next) => {
     await user.save();
 
     return responseHandler(res, 200, "Password Changed Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const softDeleteUser = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    user.isActive = false;
+    await user.save();
+
+    responseHandler(res, 200, "User set as inactive");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const reactivateUser = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    user.isActive = true;
+    await user.save();
+
+    responseHandler(res, 200, "User reactivated", user);
   } catch (error) {
     next(error);
   }

@@ -6,6 +6,9 @@ export const createJob = async (req, res, next) => {
   try {
     const { title, description, company, jobLocation, positionType } = req.body;
     const userID = req.user._id;
+    if (!req.user.isActive) {
+      throw new ApiError(400, "Invalid User");
+    }
 
     if (!title || !description || !company || !jobLocation || !positionType) {
       throw new ApiError(400, "Invalid Details");
@@ -29,6 +32,9 @@ export const createJob = async (req, res, next) => {
 export const getAllJobs = async (req, res, next) => {
   try {
     const userID = req.user._id;
+    if (!req.user.isActive) {
+      throw new ApiError(400, "Invalid User");
+    }
 
     const jobs = await Job.find({ userID });
     if (jobs.length === 0) {
@@ -45,6 +51,10 @@ export const getJobById = async (req, res, next) => {
   try {
     const { jobId } = req.params;
     const userID = req.user._id;
+
+    if (!req.user.isActive) {
+      throw new ApiError(400, "Invalid User");
+    }
 
     if (!jobId) {
       throw new ApiError(400, "Invalid job");
@@ -80,6 +90,10 @@ export const updateJob = async (req, res, next) => {
     const userID = req.user._id;
     const fieldsToBeUpdated = req.body;
 
+    if (!req.user.isActive) {
+      throw new ApiError(400, "Invalid User");
+    }
+
     if (!jobId) {
       throw new ApiError(400, "Missing Job Info");
     }
@@ -112,6 +126,10 @@ export const deleteJob = async (req, res, next) => {
   try {
     const { jobId } = req.params;
     const userID = req.user._id;
+
+    if (!req.user.isActive) {
+      throw new ApiError(400, "Invalid User");
+    }
 
     const job = await Job.findById(jobId);
     if (!job) {

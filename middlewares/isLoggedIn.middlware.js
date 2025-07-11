@@ -14,7 +14,7 @@ export const isLoggedIn = async (req, res, next) => {
 
     const user = await User.findById(decodedData._id).select("-password");
     if (!user) {
-      throw new ApiError("404", "User not Found present in token");
+      throw new ApiError(404, "User Not Found");
     }
     req.user = user;
   } catch (error) {

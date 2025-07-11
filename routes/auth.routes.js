@@ -6,8 +6,10 @@ import {
   getUser,
   loginUser,
   logOutUser,
+  reactivateUser,
   registerUser,
   resetPassword,
+  softDeleteUser,
   verifyUser,
 } from "../controllers/auth.controllers.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.middlware.js";
@@ -29,5 +31,9 @@ userRouter.route("/logout").get(isLoggedIn, logOutUser);
 userRouter.route("/forgotPassword").post(forgotPassword);
 
 userRouter.route("/resetpassword/:resetPasswordToken").post(resetPassword);
+
+userRouter.route("/softdelete").get(isLoggedIn, softDeleteUser);
+
+userRouter.route("/reactivate").get(isLoggedIn, reactivateUser);
 
 export default userRouter;
