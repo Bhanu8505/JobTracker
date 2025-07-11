@@ -7,7 +7,7 @@ const validate = (req, res, next) => {
   if (errors.isEmpty()) {
     return next();
   }
-  console.log(errors);
+  // console.log(errors);
 
   const extractedErrors = [];
   errors.array().map((err) =>
@@ -15,7 +15,7 @@ const validate = (req, res, next) => {
       [err.path]: err.msg,
     })
   );
-  console.log(extractedErrors);
+  // console.log(extractedErrors);
   throw new ApiError(422, "Received data is not valid", extractedErrors);
 };
 
