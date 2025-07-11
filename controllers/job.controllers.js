@@ -30,13 +30,46 @@ export const createJob = async (req, res, next) => {
 };
 
 export const getAllJobs = async (req, res, next) => {
+  const allowedSort = [
+    "title",
+    "description",
+    "company",
+    "status",
+    "jobLocation",
+    "note",
+    "positionType",
+    "createdAt",
+    "updatedAt",
+  ];
   try {
     const userID = req.user._id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const sortQuery = req.query.sort || "createdAt";
+    const sortFields = sortQuery.split(",");
+
+    const sortOptions = {};
+    for (const field of sortFields) {
+      const order = field.startsWith("-") ? -1 : 1;
+      const fieldName = field.replace(/^-/, "");
+      if (!allowedSort.includes(fieldName)) {
+        throw new ApiError(400, "Invalid query");
+      }
+      sortOptions[fieldName] = order;
+    }
+
     if (!req.user.isActive) {
       throw new ApiError(400, "Invalid User");
     }
 
-    const jobs = await Job.find({ userID });
+    const jobs = await Job.find({ userID })
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(limit);
+
     if (jobs.length === 0) {
       throw new ApiError(404, "No Jobs Found");
     }
