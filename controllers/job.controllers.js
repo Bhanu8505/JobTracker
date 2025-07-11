@@ -41,6 +41,30 @@ export const getAllJobs = async (req, res, next) => {
   }
 };
 
+export const getJobById = async (req, res, next) => {
+  try {
+    const { jobId } = req.params;
+    const userID = req.user._id;
+
+    if (!jobId) {
+      throw new ApiError(400, "Invalid job");
+    }
+
+    const job = await Job.findById(jobId);
+    if (!job) {
+      throw new ApiError(404, "Job not Found");
+    }
+
+    if (job.userID.toString() !== userID.toString()) {
+      throw new ApiError(403, "Unauthorized User");
+    }
+
+    responseHandler(res, 200, "Job Found", job);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateJob = async (req, res, next) => {
   const allowedUpdates = [
     "title",

@@ -126,9 +126,7 @@ export const loginUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   try {
-    const loggedInUser = await User.findById(req.user.JWT_SECRETid).select(
-      "-password"
-    );
+    const loggedInUser = await User.findById(req.user._id).select("-password");
     if (!loggedInUser) {
       throw new ApiError(404, "User not Found");
     }
