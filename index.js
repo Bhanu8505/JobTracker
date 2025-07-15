@@ -8,6 +8,7 @@ import cors from "cors";
 import userRouter from "./routes/auth.routes.js";
 import jobRouter from "./routes/job.routes.js";
 import { isLoggedIn } from "./middlewares/isLoggedIn.middlware.js";
+import resumeRouter from "./routes/resume.router.js";
 
 dotenv.config({
   path: "./.env",
@@ -37,6 +38,7 @@ db();
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/jobs", isLoggedIn, jobRouter);
+app.use("/api/v1/resume", isLoggedIn, resumeRouter);
 
 app.use(errorHandler);
 

@@ -41,6 +41,15 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    resume: {
+      url: String,
+      public_id: String,
+      mimetype: String,
+      uploadedAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
     isActive: {
       type: Boolean,
       default: true,

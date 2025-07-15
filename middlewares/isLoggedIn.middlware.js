@@ -6,7 +6,7 @@ export const isLoggedIn = async (req, res, next) => {
   try {
     const token = req.cookies.token || "";
     if (!token) {
-      throw new ApiError(400, "Invalid Token");
+      throw new ApiError(400, "User not Logged In");
     }
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
