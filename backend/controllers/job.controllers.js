@@ -4,13 +4,34 @@ import { responseHandler } from "../utils/responseHandler.js";
 
 export const createJob = async (req, res, next) => {
   try {
-    const { title, description, company, jobLocation, positionType } = req.body;
+    const {
+      title,
+      description,
+      company,
+      status,
+      jobLocation,
+      note,
+      positionType,
+    } = req.body;
     const userID = req.user._id;
     if (!req.user.isActive) {
       throw new ApiError(400, "Invalid User");
     }
 
-    if (!title || !description || !company || !jobLocation || !positionType) {
+    if (
+      !title ||
+      !description ||
+      !company ||
+      !status ||
+      !jobLocation ||
+      !positionType
+    ) {
+      if (!title) console.log("No title");
+      if (!description) console.log("No description");
+      if (!company) console.log("No company");
+      if (!status) console.log("No status");
+      if (!jobLocation) console.log("No jobLocation");
+      if (!positionType) console.log("No positionType");
       throw new ApiError(400, "Invalid Details");
     }
 
@@ -18,7 +39,9 @@ export const createJob = async (req, res, next) => {
       title,
       description,
       company,
+      status,
       jobLocation,
+      note,
       positionType,
       userID,
     });
@@ -122,6 +145,8 @@ export const updateJob = async (req, res, next) => {
     const { jobId } = req.params;
     const userID = req.user._id;
     const fieldsToBeUpdated = req.body;
+    const { title, description, company, status, jobLocation, positionType } =
+      req.body;
 
     if (!req.user.isActive) {
       throw new ApiError(400, "Invalid User");
@@ -129,6 +154,23 @@ export const updateJob = async (req, res, next) => {
 
     if (!jobId) {
       throw new ApiError(400, "Missing Job Info");
+    }
+
+    if (
+      !title ||
+      !description ||
+      !company ||
+      !status ||
+      !jobLocation ||
+      !positionType
+    ) {
+      if (!title) console.log("No title");
+      if (!description) console.log("No description");
+      if (!company) console.log("No company");
+      if (!status) console.log("No status");
+      if (!jobLocation) console.log("No jobLocation");
+      if (!positionType) console.log("No positionType");
+      throw new ApiError(400, "Invalid Details");
     }
 
     const job = await Job.findById(jobId);

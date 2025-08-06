@@ -17,8 +17,8 @@ export const isLoggedIn = async (req, res, next) => {
       throw new ApiError(404, "User Not Found");
     }
     req.user = user;
+    next();
   } catch (error) {
     next(error);
   }
-  next();
 };
