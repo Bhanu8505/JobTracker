@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../Utils/UseAuth";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Delete from "../Components/Delete";
 
 const Jobpage = () => {
-  const { jobs, getAllJobsForUser } = useAuth();
+  const { jobs, getAllJobsForUser, deleteJob } = useAuth();
   const { jobId } = useParams();
 
   const [expanded, setExpanded] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const navigate = useNavigate();
   const MAX_LENGTH = 150;
 
   useEffect(() => {
     getAllJobsForUser();
     const timeout = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(timeout);
+    const delTimeout = setTimeout(() => setDelLoaded(true), 100);
+    return () => clearTimeout(timeout, delTimeout);
   }, []);
 
   if (!jobs || !jobs.length) {
@@ -32,6 +36,31 @@ const Jobpage = () => {
   if (!thisJob) {
     return <div>No Job Found</div>;
   }
+
+  const openModal = () => {
+    setShowConfirm(true);
+    setTimeout(() => setShowModal(true), 10);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setTimeout(() => setShowConfirm(false), 300);
+  };
+
+  const submitHandler = async () => {
+    const res = await deleteJob(jobId);
+    console.log("Delete request sent");
+
+    if (res.success) {
+      navigate("/");
+    } else {
+      console.log(
+        "Error deleting job : ",
+        error.response?.data || error.message
+      );
+    }
+  };
+
   // console.log("thisJob : ", thisJob);
   return (
     <div className="h-screen w-screen">
@@ -52,11 +81,11 @@ const Jobpage = () => {
           {/* Company Info */}
           <div className="space-y-1 mb-4 text-gray-600">
             <p className="flex items-center">
-              {/* You can add an icon here */}
+              {/* add an icon here */}
               {thisJob.company}
             </p>
             <p className="flex items-center">
-              {/* You can add an icon here */}
+              {/* add an icon here */}
               {thisJob.jobLocation}
             </p>
           </div>
@@ -116,8 +145,36 @@ const Jobpage = () => {
             >
               Edit
             </Link>
-            <button onClick={() => setShowConfirm(true)}>Delete</button>
-            {showConfirm && <Delete jobId={thisJob._id} />}
+            <button onClick={openModal} className="cursor-pointer">
+              Delete
+            </button>
+            {showConfirm && (
+              <div
+                className={`fixed inset-0 backdrop-blur-xs z-50 flex items-center justify-center transform transition-all duration-300 ${
+                  showModal ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                }`}
+              >
+                <div className="bg-white p-8 rounded-md shadow-lg max-w-sm w-full text-center">
+                  <h2 className="text-lg font-semibold mb-4">
+                    Are you sure you want to delete this job?
+                  </h2>
+                  <div className="flex justify-around">
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                      onClick={submitHandler}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      onClick={closeModal}
+                      className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
             <Link
               to={"/"}
               className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800"

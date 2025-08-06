@@ -75,32 +75,6 @@ const UpdateJob = () => {
             <div className="flex justify-center items-center">
               {error && <p className="text-red-500 text-lg">{error}</p>}
             </div>
-            {/* <div className="flex items-center gap-10">
-              <label htmlFor="description" className=" w-40 text-left text-xl">
-                Description
-              </label>
-              <textarea
-                name="description"
-                onChange={handleChange}
-                value={formData.description}
-                id="description"
-                className="rounded-md p-2 flex-1 text-lg border-2 h-32 resize-none overflow-auto"
-              />
-            </div> */}
-
-            {/* <div className="flex items-center gap-10">
-              <label htmlFor="company" className="w-40 text-left text-xl">
-                Company
-              </label>
-              <input
-                type="text"
-                onChange={handleChange}
-                value={formData.company}
-                name="company"
-                id="company"
-                className=" rounded-md text-xl p-2 flex-1 border-2"
-              />
-            </div> */}
 
             <div className="flex flex-col justify-start gap-5">
               <label htmlFor="status" className="w-40 text-left text-xl">
@@ -144,7 +118,7 @@ const UpdateJob = () => {
                 onChange={handleChange}
                 value={formData.note}
                 id="note"
-                className="rounded-md p-2 flex-1 text-lg border-2 h-32 resize-none overflow-auto"
+                className="rounded-md p-2 flex-1 text-lg border-2 h-32 resize-none overflow-auto jobpage"
               />
             </div>
 
@@ -162,24 +136,6 @@ const UpdateJob = () => {
               />
             </div>
 
-            {/* <div className="flex items-center gap-10">
-              <label htmlFor="positionType" className="w-40 text-left text-xl">
-                Position Type
-              </label>
-              <select
-                name="positionType"
-                onChange={handleChange}
-                value={formData.positionType}
-                id="positionType"
-                className="rounded-md p-2 flex-1 text-xl border-2"
-              >
-                <option value="Full-Time">Full-Time</option>
-                <option value="Part-Time">Part-Time</option>
-                <option value="Contract">Contract</option>
-                <option value="Internship">Internship</option>
-                <option value="Remote">Remote</option>
-              </select>
-            </div> */}
             <div className="flex justify-center items-center">
               <button className="mt-4 px-4 py-2 border-2 rounded-md">
                 Update Job

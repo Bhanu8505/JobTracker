@@ -14,19 +14,15 @@ const Homepage = () => {
   }, []);
   console.log("Jobs in HomePage : ", jobs);
 
-  if (!jobs) {
-    return <div>Loading jobs...</div>;
-  }
-
   return (
     <div className="h-screen w-screen text-black bg-white">
       <div className="backdrop-blur-xl h-full w-full">
         {/* Navbar */}
-        <div className="flex justify-end h-[10vh] p-2 back">
+        <div className="flex justify-end h-[5vh] p-2 back">
           <Navbar />
         </div>
 
-        <div className=" h-[90vh] w-full flex overflow-hidden">
+        <div className=" h-[95vh] w-full flex overflow-hidden">
           {/* Dashboard */}
           <div
             className={`flex justify-center items-center w-2/3 m-2 transform transition-all duration-700 ease-out ${
@@ -42,9 +38,9 @@ const Homepage = () => {
               loaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
             } `}
           >
-            <div className="flex justify-center items-center overflow-hidden p-10">
+            <div className="flex justify-center items-center overflow-hidden">
               <img
-                className="object-cover h-full w-full max-h-[85vh] rounded-lg"
+                className="object-cover h-full w-full rounded-l-lg"
                 src="/public/DashboardImage.png"
               />
             </div>

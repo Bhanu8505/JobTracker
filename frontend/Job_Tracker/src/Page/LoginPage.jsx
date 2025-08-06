@@ -22,13 +22,11 @@ const LoginPage = () => {
 
     if (res.success) {
       navigate("/");
-    } else {
-      setError(res.message);
     }
   };
 
   return (
-    <div className="flex h-screen w-screen bg-white">
+    <div className="flex h-screen w-screen bg-gray-300 ">
       <div
         className={`w-1/2 flex justify-center items-center text-gray-700 transform transition-all duration-700 ease-in-out ${
           loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
@@ -40,8 +38,6 @@ const LoginPage = () => {
             onSubmit={handleSubmit}
             className="flex flex-col p-10 justify-center items-center"
           >
-            {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
             <input
               type="email"
               placeholder="john@email.com"
@@ -64,7 +60,10 @@ const LoginPage = () => {
               Login
             </button>
             <div className="font-medium">
-              <Link to="/register">Don't have an account? Register here</Link>
+              <Link to="/register">
+                Don't have an account?{" "}
+                <span className=" text-indigo-700">Register here</span>
+              </Link>
             </div>
           </form>
         </div>

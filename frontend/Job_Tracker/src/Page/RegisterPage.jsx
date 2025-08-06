@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const { signUp } = useAuth();
-  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -31,12 +30,11 @@ const RegisterPage = () => {
     if (res.success) {
       navigate("/login");
     } else {
-      setError(res.message);
       console.log("Error Signing Up : ", res.message || "Something Went Wrong");
     }
   };
   return (
-    <div className="h-screen w-screen flex">
+    <div className="h-screen w-screen flex bg-gray-300">
       <div
         className={`w-1/2 h-full flex justify-center items-center pr-15 transform transition-all duration-700 ease-in-out ${
           loaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
@@ -59,9 +57,6 @@ const RegisterPage = () => {
             className="flex border-2 flex-col gap-4 p-15 rounded-md"
             onSubmit={handleSubmit}
           >
-            {error && (
-              <p className="text-red-500 text-sm mb-2 items-center">{error}</p>
-            )}
             <div className="flex gap-4">
               <label htmlFor="email" className="text-xl w-32 text-left">
                 Email
@@ -122,8 +117,8 @@ const RegisterPage = () => {
             </div>
             <div className="flex justify-center w-full">
               <span className="cursor-pointer">
-                Already have an account{" "}
-                <Link to="/" className="underline text-indigo-700">
+                Already have an account?{" "}
+                <Link to="/" className=" text-md underline text-indigo-700">
                   Sign In
                 </Link>
               </span>

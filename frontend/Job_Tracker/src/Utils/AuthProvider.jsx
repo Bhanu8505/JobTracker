@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext();
 
@@ -31,11 +32,16 @@ const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
       console.log("Signup request sent");
+      toast.success(res.data?.message || "Succesfully Registered");
       return {
         success: true,
       };
     } catch (error) {
-      console.log("Error Signing up", error.response?.data || error.message);
+      console.log(
+        "Error Signing up",
+        error.response?.data?.message || error.message
+      );
+      toast.error(error.response?.data?.message || "Error Signing up");
       return {
         success: false,
         message: error.response?.data?.message || "Error Signing Up",
@@ -54,13 +60,17 @@ const AuthProvider = ({ children }) => {
       );
       console.log("RES in AuthProvider : ", res.data.data);
       setAuthUser(res.data.data);
+      toast.success(res?.data?.message || "Succesffuly Logged In");
       return {
         success: true,
       };
     } catch (error) {
       console.log(
         "error while logging in : ",
-        error.response?.data || error.message
+        error.response?.data?.message || error.message
+      );
+      toast.error(
+        error.response?.data?.message || error.message || "Error Logging in"
       );
       setAuthUser(null);
       return {
@@ -82,6 +92,7 @@ const AuthProvider = ({ children }) => {
         }
       );
       console.log("New Job : ", res);
+      toast.success(res?.data?.message || "Job Added Successfully");
       return {
         success: true,
       };
@@ -90,6 +101,7 @@ const AuthProvider = ({ children }) => {
         "Error while adding Job : ",
         error.response?.data || error.message
       );
+      toast.error(error?.response?.data?.message || "Error adding Job");
       return {
         success: false,
         message: error?.response?.data?.message || "Error Adding Job",
@@ -124,6 +136,7 @@ const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
       console.log("Update job form submitted : ", res);
+      toast.success(res?.data?.message || "Job Updated Successfully");
       return {
         success: true,
         data: res.data,
@@ -133,6 +146,7 @@ const AuthProvider = ({ children }) => {
         "Error while updating Job : ",
         error.response?.data || "Error Updating Job"
       );
+      toast.error(error?.response?.data?.message || "Error Updating Job");
       return {
         success: false,
         data: error.response?.data?.message || "Error Updating Job",
@@ -147,11 +161,20 @@ const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
       console.log("Job deletion request sent");
+      toast.success(res?.data?.message || "Job Deleted Successfully");
+      return {
+        success: true,
+      };
     } catch (error) {
       console.log(
         "Error deleting job : ",
         error.response?.data || error.message
       );
+      toast.error(error?.response?.data?.message || "Error Deleting Job");
+      return {
+        success: false,
+        message: error?.response?.data?.message || "Error Deleting Job",
+      };
     }
   };
 
@@ -161,11 +184,13 @@ const AuthProvider = ({ children }) => {
         withCredentials: true,
       });
       setAuthUser(null);
+      toast.success(res?.data?.message || "User Logged Out");
     } catch (error) {
       console.error(
         "error logging out user : ",
         error.response?.data?.message || error.message
       );
+      toast.error(error?.response?.data?.message || "Error Logging Out");
       setAuthUser(null);
     }
   };
