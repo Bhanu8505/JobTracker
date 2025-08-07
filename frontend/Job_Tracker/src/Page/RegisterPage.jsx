@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../Utils/UseAuth";
 import { Link, useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 const RegisterPage = () => {
   const { signUp } = useAuth();
@@ -11,6 +12,7 @@ const RegisterPage = () => {
     fullName: "",
   });
   const [loaded, setLoaded] = useState(false);
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +27,9 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
     const res = await signUp(formData);
+    setLoader(false);
     console.log("Sign up request sent");
     if (res.success) {
       navigate("/login");
@@ -113,7 +117,16 @@ const RegisterPage = () => {
               />
             </div>
             <div className="flex justify-center items-center mt-5">
-              <button className=" px-5 py-1 border-2 rounded-md">Submit</button>
+              <button
+                disabled={loader}
+                className=" px-5 py-1 border-2 rounded-md"
+              >
+                {loader ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Submit"
+                )}
+              </button>
             </div>
             <div className="flex justify-center w-full">
               <span className="cursor-pointer">
