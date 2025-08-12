@@ -10,6 +10,7 @@ import Jobpage from "./Page/Jobpage";
 import AddJob from "./Page/AddJob";
 import UpdateJob from "./Page/UpdateJob";
 import RegisterPage from "./Page/RegisterPage";
+import ResumePage from "./Page/ResumePage";
 
 function App() {
   const { authUser, checkAuth } = useAuth();
@@ -45,6 +46,10 @@ function App() {
         <Route
           path="/register"
           element={!authUser ? <RegisterPage /> : <Homepage />}
+        />
+        <Route
+          path="/resume"
+          element={!authUser ? <LoginPage /> : <ResumePage />}
         />
       </Routes>
     </div>

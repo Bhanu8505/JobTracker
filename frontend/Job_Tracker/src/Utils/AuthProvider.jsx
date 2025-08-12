@@ -195,6 +195,74 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const uploadResume = async (file) => {
+    try {
+      const res = await axios.post(
+        "http://127.0.0.1:3000/api/v1/resume/upload?force=true",
+        file,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("Resume upload request sent");
+      toast.success(res?.data?.message || "Resume Uploaded Succesfully");
+      console.log(res);
+      return {
+        success: true,
+        data: res?.data?.data?.url || "Resume URL",
+      };
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Resume Upload Failed");
+      return {
+        success: false,
+        message: error?.response?.data?.message || "resume Upload Failed",
+      };
+    }
+  };
+
+  const deleteResume = async (url) => {
+    try {
+      const res = await axios.delete(
+        "http://127.0.0.1:3000/api/v1/resume/delete_resume",
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("Resume delete request sent");
+      toast.success(res?.data?.message || "Resume Deleted Succesfully");
+      return {
+        success: true,
+      };
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Resume Delete Failed");
+      return {
+        success: false,
+        message: error?.response?.data?.message || "resume Delete Failed",
+      };
+    }
+  };
+
+  const downloadResume = async () => {
+    try {
+      const res = await axios.get(
+        "http://127.0.0.1:3000/api/v1/resume/download",
+        { withCredentials: true, responseType: "blob" }
+      );
+      console.log("Resume download request sent");
+      console.log(res);
+      // const blob = await res.blob();
+      return {
+        success: true,
+        blob: res.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error?.response?.data?.message || "Error downloading Resume",
+      };
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -208,6 +276,9 @@ const AuthProvider = ({ children }) => {
         addJob,
         updateJob,
         deleteJob,
+        uploadResume,
+        deleteResume,
+        downloadResume,
       }}
     >
       {children}

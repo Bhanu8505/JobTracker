@@ -121,11 +121,12 @@ const RegisterPage = () => {
                 disabled={loader}
                 className=" px-5 py-1 border-2 rounded-md"
               >
-                {loader ? (
+                Submit
+                {/* {loader ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   "Submit"
-                )}
+                )} */}
               </button>
             </div>
             <div className="flex justify-center w-full">
@@ -139,6 +140,11 @@ const RegisterPage = () => {
           </form>
         </div>
       </div>
+      {loader && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/50 backdrop-blur-sm">
+          <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
+        </div>
+      )}
     </div>
   );
 };

@@ -15,14 +15,14 @@ const Homepage = () => {
   console.log("Jobs in HomePage : ", jobs);
 
   return (
-    <div className="h-screen w-screen text-black bg-white">
+    <div className="h-screen w-screen text-black bg-gray-300">
       <div className="backdrop-blur-xl h-full w-full">
         {/* Navbar */}
-        <div className="flex justify-end h-[5vh] p-2 back">
+        <div className="flex justify-end  p-2 back mb-3 mr-5">
           <Navbar />
         </div>
 
-        <div className=" h-[95vh] w-full flex overflow-hidden">
+        <div className="  w-full flex overflow-hidden">
           {/* Dashboard */}
           <div
             className={`flex justify-center items-center w-2/3 m-2 transform transition-all duration-700 ease-out ${
