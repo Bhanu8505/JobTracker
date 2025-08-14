@@ -63,9 +63,9 @@ const Jobpage = () => {
 
   // console.log("thisJob : ", thisJob);
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen bg-gray-100">
       <div
-        className={`min-h-screen flex items-center justify-center bg-gray-100 transform transition-all duration-700 ease-in-out ${
+        className={`min-h-screen flex items-center justify-center  transform transition-all duration-700 ease-in-out ${
           loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
         }`}
       >

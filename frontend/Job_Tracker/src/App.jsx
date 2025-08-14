@@ -11,6 +11,7 @@ import AddJob from "./Page/AddJob";
 import UpdateJob from "./Page/UpdateJob";
 import RegisterPage from "./Page/RegisterPage";
 import ResumePage from "./Page/ResumePage";
+import ProfilePage from "./Page/ProfilePage";
 
 function App() {
   const { authUser, checkAuth } = useAuth();
@@ -50,6 +51,10 @@ function App() {
         <Route
           path="/resume"
           element={!authUser ? <LoginPage /> : <ResumePage />}
+        />
+        <Route
+          path="/me"
+          element={!authUser ? <LoginPage /> : <ProfilePage />}
         />
       </Routes>
     </div>

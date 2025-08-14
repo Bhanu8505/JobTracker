@@ -80,6 +80,32 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const editUser = async (data) => {
+    try {
+      const res = await axios.patch(
+        "http://127.0.0.1:3000/api/v1/users/edit_user",
+        data,
+        { withCredentials: true }
+      );
+      console.log("Edit User request sent");
+      console.log("RES in AuthProvider : ", res.data.data);
+      setAuthUser(res.data.data);
+      toast.success(res?.data?.message || "Succesffuly Updated User");
+      return {
+        success: true,
+      };
+    } catch (error) {
+      console.log("Error updating User", error);
+      toast.error(
+        error.response?.data?.message || error.message || "Error Updating User"
+      );
+      return {
+        success: false,
+        message: error.response?.data?.message || "Something went wrong",
+      };
+    }
+  };
+
   const addJob = async (data) => {
     try {
       if (!authUser) console.log("Login First");
@@ -268,6 +294,7 @@ const AuthProvider = ({ children }) => {
       value={{
         authUser,
         login,
+        editUser,
         jobs,
         signUp,
         getAllJobsForUser,

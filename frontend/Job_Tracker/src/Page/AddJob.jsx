@@ -68,7 +68,7 @@ const AddJob = () => {
         <div className={`flex justify-end p-3 text-lg `}>
           <Link
             to="/"
-            className={`border-2 rounded-lg px-2 transform transition-all duration-800 ease-in-out ${
+            className={` px-2 py-1 border-gray-200 bg-violet-400 shadow-lg text-white font-bold text-lg  rounded-lg h-fit  transform transition-all duration-800 ease-in-out ${
               loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
             }`}
           >
@@ -193,7 +193,7 @@ const AddJob = () => {
               </select>
             </div>
             <div className="flex justify-center items-center">
-              <button className="mt-4 px-4 py-2 border-2 rounded-md">
+              <button className="mt-3 px-4 py-2 border-2 border-gray-200 bg-violet-400 shadow-lg text-white font-bold text-lg  rounded-lg h-fit">
                 Add Job
               </button>
             </div>

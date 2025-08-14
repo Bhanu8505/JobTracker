@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { authUser, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -36,19 +36,31 @@ const Navbar = () => {
 
   return (
     <div ref={menuRef} className=" relative text-lg ">
-      <button onClick={() => setOpen(!open)}>
+      <button onClick={() => setOpen(!open)} className="w-20 h-15">
         <img
-          src={"https://placehold.co/60x40"}
+          src={authUser.avatar.url}
           alt="profile"
           className="w-full h-full object-cover"
         />
       </button>
       {open && (
         <div className="flex flex-col gap-4 justify-between absolute right-0 z-50 border-gray-200 rounded-lg bg-white shadow-lg mt-2 px-1 py-3 w-40 max-h-40 overflow-y-auto jobpage">
-          <Link className="text-center w-full cursor-pointer" to="/resume">
+          <Link
+            className="text-center w-full cursor-pointer hover:bg-gray-200"
+            to="/resume"
+          >
             Resume
           </Link>
-          <button className="w-full cursor-pointer" onClick={logout}>
+          <Link
+            className="text-center w-full cursor-pointer hover:bg-gray-200"
+            to="/me"
+          >
+            Profile
+          </Link>
+          <button
+            className="w-full cursor-pointer hover:bg-gray-200"
+            onClick={logout}
+          >
             Logout
           </button>
         </div>
