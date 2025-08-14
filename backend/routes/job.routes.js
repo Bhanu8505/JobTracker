@@ -7,10 +7,11 @@ import {
   updateJob,
 } from "../controllers/job.controllers.js";
 import { jobCreationValidation } from "../validators/index.js";
+import { validate } from "../middlewares/validator.middleware.js";
 
 const jobRouter = Router();
 
-jobRouter.route("/job").post(jobCreationValidation(), createJob);
+jobRouter.route("/job").post(jobCreationValidation(), validate, createJob);
 
 jobRouter.route("/job").get(getAllJobs);
 

@@ -46,6 +46,13 @@ export const userLoginValidation = () => {
   ];
 };
 
+export const userEditValidation = () => {
+  return [
+    body("fullName").trim().notEmpty().withMessage("name cannot be blank"),
+    body("avatarUrl").trim(),
+  ];
+};
+
 export const jobCreationValidation = () => {
   return [
     body("title").trim().notEmpty().withMessage("Title cannot be blank"),

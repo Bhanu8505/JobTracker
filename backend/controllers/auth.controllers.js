@@ -125,6 +125,42 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
+export const editUser = async (req, res, next) => {
+  const allowedUpdates = ["fullName", "avatarUrl"];
+  try {
+    const loggedInUser = await User.findById(req.user._id).select("-password");
+
+    if (!loggedInUser) {
+      throw new ApiError(404, "User not Found");
+    }
+    if (!loggedInUser.isActive) {
+      throw new ApiError(400, "Invalid User");
+    }
+
+    const { fullName, avatarUrl } = req.body;
+    for (let key of Object.keys(req.body)) {
+      if (!allowedUpdates.includes(key)) {
+        throw new ApiError(400, "Invalid Update");
+      }
+    }
+
+    if (!fullName) {
+      throw new ApiError(400, "Name not entered");
+    }
+    if (!avatarUrl) {
+      throw new ApiError(400, "Avatar not provided");
+    }
+
+    loggedInUser.fullName = fullName;
+    loggedInUser.avatar.url = avatarUrl;
+    await loggedInUser.save();
+
+    return responseHandler(res, 200, "User Updated successfully", loggedInUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getUser = async (req, res, next) => {
   try {
     const loggedInUser = await User.findById(req.user._id).select("-password");

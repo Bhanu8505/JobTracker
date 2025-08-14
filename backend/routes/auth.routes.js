@@ -1,7 +1,11 @@
 import { Router } from "express";
-import { userRegisterValidation } from "../validators/index.js";
+import {
+  userEditValidation,
+  userRegisterValidation,
+} from "../validators/index.js";
 import { validate } from "../middlewares/validator.middleware.js";
 import {
+  editUser,
   forgotPassword,
   getUser,
   loginUser,
@@ -23,6 +27,10 @@ userRouter
 userRouter.route("/verify_user/:token").get(verifyUser);
 
 userRouter.route("/login").post(loginUser);
+
+userRouter
+  .route("/edit_user")
+  .patch(isLoggedIn, userEditValidation(), validate, editUser);
 
 userRouter.route("/get_me").get(isLoggedIn, getUser);
 
