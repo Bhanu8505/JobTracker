@@ -1,21 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
-const Header = () => {
+const Header1 = () => {
   return (
-    <div className="grid grid-cols-5 text-gray-800">
-      <h2 className="m-2 p-2 font-bold text-xl">Company</h2>
-      <h2 className="m-2 p-2 font-bold text-xl">Description</h2>
-      <h2 className="m-2 p-2 font-bold text-xl">Location</h2>
-      <h2 className="m-2 p-2 font-bold text-xl">Status</h2>
-      <Link
-        to="/add_job"
-        className="cursor-pointer m-2 px-2 py-1 text-left border-2 w-fit rounded-md font-bold text-lg"
-      >
-        Add Job
-      </Link>
+    <div className="h-full w-full flex justify-between px-4 bg-blue-900">
+      <h2 className="text-2xl text-white h-full font-bold flex justify-center items-center">
+        Job Tracker
+      </h2>
+
+      <Navbar />
     </div>
   );
 };
 
-export default Header;
+export default Header1;

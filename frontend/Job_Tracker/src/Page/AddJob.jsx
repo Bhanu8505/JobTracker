@@ -68,7 +68,7 @@ const AddJob = () => {
         <div className={`flex justify-end p-3 text-lg `}>
           <Link
             to="/"
-            className={` px-2 py-1 border-gray-200 bg-violet-400 shadow-lg text-white font-bold text-lg  rounded-lg h-fit  transform transition-all duration-800 ease-in-out ${
+            className={` px-2 py-1 border-gray-200 bg-blue-900 shadow-lg text-white font-bold text-lg  rounded-lg h-fit  transform transition-all duration-800 ease-in-out ${
               loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
             }`}
           >
@@ -84,9 +84,6 @@ const AddJob = () => {
             onSubmit={submitHandler}
             className="flex flex-col border-2 p-2 rounded-md gap-4 w-[85%]"
           >
-            <div className="flex justify-center items-center">
-              {error && <p className="text-red-500 text-lg">{error}</p>}
-            </div>
             <div className="flex items-center gap-10">
               <label htmlFor="description" className=" w-40 text-left text-xl">
                 Description
@@ -193,7 +190,7 @@ const AddJob = () => {
               </select>
             </div>
             <div className="flex justify-center items-center">
-              <button className="mt-3 px-4 py-2 border-2 border-gray-200 bg-violet-400 shadow-lg text-white font-bold text-lg  rounded-lg h-fit">
+              <button className="mt-3 px-4 py-2 bg-blue-900 text-white font-bold text-lg  rounded-lg h-fit">
                 Add Job
               </button>
             </div>

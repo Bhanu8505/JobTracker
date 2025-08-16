@@ -26,14 +26,16 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen bg-gray-300 ">
+    <div className="flex flex-col md:flex-row h-[100vh] w-[100vw] bg-gray-300 ">
       <div
-        className={`w-1/2 flex justify-center items-center text-gray-700 transform transition-all duration-700 ease-in-out ${
+        className={`w-full md:w-1/2 flex justify-center items-center text-gray-700 transform transition-all duration-700 ease-in-out ${
           loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
         }`}
       >
         <div className="rounded-xl">
-          <h1 className="mb-10 text-5xl font-bold">Welcome to Job Tracker</h1>
+          <h1 className=" text-5xl font-bold text-center">
+            Welcome to Job Tracker
+          </h1>
           <form
             onSubmit={handleSubmit}
             className="flex flex-col p-10 justify-center items-center"
@@ -68,14 +70,14 @@ const LoginPage = () => {
           </form>
         </div>
       </div>
-      <div className="w-1/2 flex h-full pr-3">
+      <div className="invisible md:visible w-full md:w-1/2 flex h-full p-3 overflow-hidden">
         <div
-          className={`flex justify-center items-center p-10 transform transition-all duration-700 ease-in-out ${
+          className={`flex justify-center items-center p-4 md:p-10 transform transition-all duration-700 ease-in-out ${
             loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
           }`}
         >
           <img
-            className="object-cover rounded-lg"
+            className="flex justify-center items-center object-contain rounded-lg max-w-full max-h-full"
             src="/public/LoginImage.png"
           />
         </div>

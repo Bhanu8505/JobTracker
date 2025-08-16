@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Dashboard from "../Components/Dashboard";
 import { useAuth } from "../Utils/UseAuth";
 import Navbar from "../Components/Navbar";
+import Header from "../Components/Header";
+import Sidebar from "../Components/Sidebar";
+import JobBoard from "./JobBoard";
 
 const Homepage = () => {
   const { jobs, getAllJobsForUser, logout } = useAuth();
@@ -15,37 +17,13 @@ const Homepage = () => {
   console.log("Jobs in HomePage : ", jobs);
 
   return (
-    <div className="h-screen w-screen text-black bg-gray-300">
-      <div className="backdrop-blur-xl h-full w-full">
-        {/* Navbar */}
-        <div className="flex justify-end  p-2 back mb-3 mr-5">
-          <Navbar />
-        </div>
-
-        <div className="  w-full flex overflow-hidden">
-          {/* Dashboard */}
-          <div
-            className={`flex justify-center items-center w-2/3 m-2 transform transition-all duration-700 ease-out ${
-              loaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-            }`}
-          >
-            <Dashboard data={jobs} />
-          </div>
-
-          {/* Image section */}
-          <div
-            className={`w-1/3 flex h-full transform transition-all duration-700 ease-out ${
-              loaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-            } `}
-          >
-            <div className="flex justify-center items-center overflow-hidden">
-              <img
-                className="object-cover h-full w-full rounded-l-lg"
-                src="/public/DashboardImage.png"
-              />
-            </div>
-          </div>
-        </div>
+    <div className="flex flex-col h-screen w-screen overflow-hidden">
+      <div className="h-[50px] flex-shrink-0">
+        <Header />
+      </div>
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar className="w-[70px] flex-shrink-0" />
+        <JobBoard className="flex-1 overflow-x-auto overflow-y-hidden" />
       </div>
     </div>
   );
