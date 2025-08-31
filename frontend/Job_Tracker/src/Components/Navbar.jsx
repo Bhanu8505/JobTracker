@@ -20,20 +20,6 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleMenu);
   }, []);
 
-  // const logoutHandler = () => {
-  //   logout;
-  //   navigate("/");
-  // };
-
-  // navigate("/");
-  // return (
-  //   <div className="font-bold text-lg">
-  //     <button className="cursor-pointer" onClick={logout}>
-  //       Logout
-  //     </button>
-  //   </div>
-  // );
-
   return (
     <div ref={menuRef} className=" relative text-lg ">
       <button onClick={() => setOpen(!open)} className={`w-full h-full `}>

@@ -35,7 +35,7 @@ const Sidebar = () => {
             ) : (
               <div className="flex gap-5 justify-center items-center">
                 <img src="./layout.png" className="w-8 h-8" />
-                <p>Job Tracker</p>
+                <Link to="/">Job Tracker</Link>
               </div>
             )}
           </Link>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../Utils/UseAuth";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import Header from "../Components/Header";
+import Sidebar from "../Components/Sidebar";
 
 const ProfilePage = () => {
   const { authUser, editUser } = useAuth();
@@ -40,17 +42,14 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="h-screen w-screen bg-gray-300">
-      <div className=" w-full h-full">
-        <div className={` p-2 flex justify-between pr-5 `}>
-          <Link
-            to="/"
-            className="px-2 py-2 border-gray-200 bg-violet-400 shadow-lg text-white font-bold text-lg  rounded-lg h-fit"
-          >
-            Home
-          </Link>
-          <Navbar />
-        </div>
+    <div className="flex flex-col h-screen w-screen bg-gray-300">
+      {/* <div className=" w-full h-full"> */}
+      <div className="h-[50px] flex-shrink-0">
+        <Header />
+      </div>
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar className="w-[70px] flex-shrink-0" />
+        {/* <JobBoard className="flex-1 overflow-x-auto overflow-y-hidden" /> */}
         <div
           className={`flex flex-col justify-center items-center w-full h-[90vh] transform transition-all duration-700 ease-in-out ${
             loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
@@ -68,7 +67,7 @@ const ProfilePage = () => {
             </div>
             <div className="flex flex-col mt-5 w-full">
               <div className="flex gap-10 w-full justify-center items-center m-3">
-                <label htmlFor="name" className="text-lg">
+                <label htmlFor="name" className=" min-w-28 text-lg">
                   Name
                 </label>
                 <input
@@ -77,11 +76,11 @@ const ProfilePage = () => {
                   id="fullName"
                   name="fullName"
                   onChange={handleChange}
-                  className="text-lg p-2 rounded-lg"
+                  className="text-lg p-2 rounded-lg bg-gray-200 focus:border-2"
                 />
               </div>
               <div className="flex gap-10 w-full justify-center items-center m-3">
-                <label htmlFor="email" className="text-lg">
+                <label htmlFor="email" className="min-w-28 text-lg">
                   Email
                 </label>
                 <input
@@ -90,11 +89,11 @@ const ProfilePage = () => {
                   id="email"
                   name="email"
                   onChange={handleChange}
-                  className="text-lg p-2 rounded-lg"
+                  className="text-lg p-2 rounded-lg bg-gray-200 focus:border-2"
                 />
               </div>
               <div className="flex gap-10 w-full justify-center items-center m-3">
-                <label htmlFor="username" className="text-lg ">
+                <label htmlFor="username" className="min-w-28 text-lg">
                   Username
                 </label>
                 <input
@@ -103,18 +102,20 @@ const ProfilePage = () => {
                   id="username"
                   name="username"
                   onChange={handleChange}
-                  className="text-lg p-2 rounded-lg "
+                  className="text-lg p-2 rounded-lg bg-gray-200 focus:border-2"
                 />
               </div>
             </div>
             <div className="flex items-center justify-center w-full">
-              <button className=" px-2 py-1 border-gray-200 bg-violet-400 shadow-lg text-white font-bold text-lg mt-2 rounded-lg w-fit">
+              <button className=" px-2 py-1 border-gray-200 bg-blue-900 shadow-lg text-white font-bold text-lg mt-2 rounded-lg w-fit">
                 Update
               </button>
             </div>
           </form>
         </div>
       </div>
+
+      {/* </div> */}
     </div>
   );
 };

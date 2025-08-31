@@ -23,9 +23,12 @@ const JobBoard = () => {
   const { jobs, getAllJobsForUser, logout } = useAuth();
   const [activeJob, setActiveJob] = useState(null);
   const [localJobs, setLocalJobs] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     getAllJobsForUser();
+    const timeout = setTimeout(() => setLoaded(true), 300);
+    return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {
@@ -33,7 +36,9 @@ const JobBoard = () => {
   }, [jobs]);
 
   const getJobByStatus = (status) => {
-    return localJobs.filter((job) => job.status === status);
+    if (localJobs != null) {
+      return localJobs.filter((job) => job.status === status);
+    }
   };
 
   // console.log("Jobs in JobBoard : ", jobs);
@@ -66,7 +71,11 @@ const JobBoard = () => {
   };
 
   return (
-    <div className="flex flex-col h-full w-full overflow-auto bg-white shadow-2xl rounded-lg p-6">
+    <div
+      className={`flex flex-col h-full w-full overflow-auto bg-white shadow-2xl rounded-lg p-6 transform transition-all duration-700 ease-in-out ${
+        loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
+      }`}
+    >
       <div className="flex justify-between px-4">
         <h1 className="flex items-center  w-fit rounded-md font-bold text-lg">
           My 2025 Job Applications
@@ -84,7 +93,7 @@ const JobBoard = () => {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex flex-1 overflow-x-auto p-4 gap-4">
+        <div className={`flex flex-1 overflow-x-auto p-4 gap-4 `}>
           {columns.map((column) => {
             return (
               <Column

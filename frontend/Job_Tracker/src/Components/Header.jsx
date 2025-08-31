@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 
-const Header1 = () => {
+const Header = () => {
   return (
     <div className="h-full w-full flex justify-between px-4 bg-blue-900">
       <h2 className="text-2xl text-white h-full font-bold flex justify-center items-center">
@@ -13,4 +13,4 @@ const Header1 = () => {
   );
 };
 
-export default Header1;
+export default Header;

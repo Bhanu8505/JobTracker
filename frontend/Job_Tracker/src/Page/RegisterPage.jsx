@@ -38,7 +38,7 @@ const RegisterPage = () => {
     }
   };
   return (
-    <div className="h-screen w-screen flex bg-gray-300">
+    <div className="h-screen w-screen flex bg-gray-200">
       <div
         className={`w-1/2 h-full flex justify-center items-center pr-15 transform transition-all duration-700 ease-in-out ${
           loaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
@@ -58,7 +58,7 @@ const RegisterPage = () => {
         >
           <h1 className="m-4 text-5xl font-bold">Join Job Tracker</h1>
           <form
-            className="flex border-2 flex-col gap-4 p-15 rounded-md"
+            className="flex shadow-lg bg-gray-300 flex-col gap-4 p-15 rounded-md"
             onSubmit={handleSubmit}
           >
             <div className="flex gap-4">

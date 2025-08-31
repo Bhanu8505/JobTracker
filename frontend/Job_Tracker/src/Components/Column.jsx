@@ -17,9 +17,9 @@ const Column = ({ column, jobs }) => {
       <div className="font-bold mb-3 text-lg w-full flex justify-center">
         <h2>{column.title}</h2>
       </div>
-      <div className="space-y-3 flex-1 ">
+      <div className="space-y-3 flex-1 overflow-y-auto jobpage">
         {/* {<Jobs key={`${column.id}`} data={getJobByStatus(column.id)} />} */}
-        {jobs.map((job) => (
+        {jobs?.map((job) => (
           <JobCard key={job._id} data={job} />
         ))}
       </div>
